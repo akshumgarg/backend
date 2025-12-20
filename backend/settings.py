@@ -9,7 +9,7 @@ from decouple import config
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-this-in-production')
+SECRET_KEY = config('SECRET_KEY', default='w6OiWE84XAZ9Af6oyhxHfIgshy7LZNSvEnSFtw3x_ppRlUthtKBL2B-uV_L-VPduPI')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
@@ -73,24 +73,24 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # For local development with SQLite (easier)
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-# Uncomment below for PostgreSQL (Railway production)
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': config('PGDATABASE', default='railway'),
-#         'USER': config('PGUSER', default='postgres'),
-#         'PASSWORD': config('PGPASSWORD', default='postgres'),
-#         'HOST': config('PGHOST', default='localhost'),
-#         'PORT': config('PGPORT', default='5432'),
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+# Uncomment below for PostgreSQL (Railway production)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('PGDATABASE', default='railway'),
+        'USER': config('PGUSER', default='postgres'),
+        'PASSWORD': config('PGPASSWORD', default='postgres'),
+        'HOST': config('PGHOST', default='localhost'),
+        'PORT': config('PGPORT', default='5432'),
+    }
+}
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
