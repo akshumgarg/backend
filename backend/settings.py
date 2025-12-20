@@ -1,6 +1,7 @@
 """
 Django settings for authentication backend
 Updated for 'backend' project name
+Fixed for Railway deployment
 """
 import os
 from pathlib import Path
@@ -14,7 +15,7 @@ SECRET_KEY = config('SECRET_KEY', default='w6OiWE84XAZ9Af6oyhxHfIgshy7LZNSvEnSFt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['*','web-production-a39b0.up.railway.app']
+ALLOWED_HOSTS = ['*', 'web-production-a39b0.up.railway.app', '.railway.app']
 
 # Add Railway domain
 RAILWAY_DOMAIN = config('RAILWAY_STATIC_URL', default='')
@@ -72,23 +73,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
-# For local development with SQLite (easier)
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# Uncomment below for PostgreSQL (Railway production)
+# Use SQLite for simplicity (works for both local and Railway)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('PGDATABASE', default='railway'),
-        'USER': config('PGUSER', default='postgres'),
-        'PASSWORD': config('PGPASSWORD', default='postgres'),
-        'HOST': config('PGHOST', default='localhost'),
-        'PORT': config('PGPORT', default='5432'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -107,7 +96,7 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -138,15 +127,8 @@ SIMPLE_JWT = {
     'UPDATE_LAST_LOGIN': True,
 }
 
-# CORS settings - Allow your React Native app
-CORS_ALLOW_ALL_ORIGINS = DEBUG  # Only in development
-
-# For development, allow all
-if DEBUG:
-    CORS_ALLOW_ALL_ORIGINS = True
-else:
-    # In production, specify your app's domains
-    CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='').split(',')
+# CORS settings - Allow all origins for development and Railway
+CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = [
@@ -168,3 +150,16 @@ CORS_ALLOW_HEADERS = [
     'x-csrftoken',
     'x-requested-with',
 ]
+
+# CSRF Settings for Railway
+CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-a39b0.up.railway.app',
+    'https://*.railway.app',
+]
+
+# Security settings for production
+if not DEBUG:
+    SECURE_SSL_REDIRECT = False  # Railway handles SSL
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
