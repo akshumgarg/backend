@@ -74,10 +74,15 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # Use SQLite for simplicity (works for both local and Railway)
+# Database - PostgreSQL for Railway
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('PGDATABASE', default='railway'),
+        'USER': config('PGUSER', default='postgres'),
+        'PASSWORD': config('PGPASSWORD', default='postgres'),
+        'HOST': config('PGHOST', default='localhost'),
+        'PORT': config('PGPORT', default='5432'),
     }
 }
 
