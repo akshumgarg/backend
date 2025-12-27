@@ -25,4 +25,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', api_root, name='api-root'),
     path('api/auth/', include('authentication.urls')),
+    path('api/progress/', include('progress.urls')),
 ]
