@@ -178,10 +178,12 @@ def chapter_videos_view(request, chapter_id):
         videos = Video.objects.filter(chapter=chapter).order_by('order')
         
         # Get user's watch status for these videos
-        watched_videos = VideoWatch.objects.filter(
-            student=user,
-            video__in=videos
-        ).values_list('video_id', flat=True)
+        watched_videos = set(
+    VideoWatch.objects.filter(
+        student=user,
+        completed=True
+    ).values_list('video_id', flat=True)
+)
         
         # Build videos list
         videos_data = []
