@@ -16,6 +16,6 @@ urlpatterns = [
     path('video/watch/', views.mark_video_watched_view, name='mark_video_watched'),
     
     # Teacher endpoints
-    path('teacher/students/', views.all_students_progress_view, name='all_students_progress'),
-    path('teacher/students/<uuid:student_id>/', views.student_detail_progress_view, name='student_detail_progress'),
+    # path('teacher/students/', views.all_students_progress_view, name='all_students_progress'),
+    # path('teacher/students/<uuid:student_id>/', views.student_detail_progress_view, name='student_detail_progress'),
 ]
