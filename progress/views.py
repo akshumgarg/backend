@@ -213,7 +213,7 @@ def chapter_videos_view(request, chapter_id):
             'chapter': {
                 'id': str(chapter.id),
                 'title': chapter.title,
-                'description': chapter.description,
+                
                 'subject': chapter.subject.display_name,
                 'subject_color': chapter.subject.color,
                 'total_videos': chapter.total_videos,
