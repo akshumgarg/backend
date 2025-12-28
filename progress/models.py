@@ -42,7 +42,7 @@ class Chapter(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='chapters')
     title = models.CharField(max_length=200)
-    description = models.TextField(blank=True, null=True)
+    # description = models.TextField(blank=True, null=True)
     order = models.IntegerField(default=0)
     total_videos = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
