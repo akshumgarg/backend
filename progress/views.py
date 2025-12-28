@@ -193,7 +193,7 @@ def chapter_videos_view(request, chapter_id):
             videos_data.append({
                 'id': str(video.id),
                 'title': video.title,
-                'description': video.description,
+                
                 'video_url': video.video_url,
                 'thumbnail_url': video.thumbnail_url,
                 'duration': video.duration,
