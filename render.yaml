@@ -1,0 +1,30 @@
+databases:
+  - name: backend
+    databaseName: tutorApp
+    user: djangoadmin
+    plan: free  # or starter/standard for paid plans
+    region: singapore  # or oregon, frankfurt, ohio, etc.
+
+services:
+  - type: web
+    name: django-backend
+    runtime: python
+    plan: free  # or starter/standard for paid plans
+    region: singapore  # same as database
+    branch: main
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn your_project.wsgi:application"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mysite-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DEBUG
+        value: False
+      - key: ALLOWED_HOSTS
+        sync: false
+    autoDeploy: true
