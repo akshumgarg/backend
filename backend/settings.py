@@ -16,7 +16,7 @@ SECRET_KEY = config('SECRET_KEY', default='w6OiWE84XAZ9Af6oyhxHfIgshy7LZNSvEnSFt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ['*', 'web-production-a39b0.up.railway.app', '.railway.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['django-backend-sdmi.onrender.com','*', 'localhost', '127.0.0.1']
 
 # Add Railway domain
 RAILWAY_DOMAIN = config('RAILWAY_STATIC_URL', default='')
@@ -172,8 +172,7 @@ CORS_ALLOW_HEADERS = [
 
 # CSRF Settings
 CSRF_TRUSTED_ORIGINS = [
-    'https://web-production-a39b0.up.railway.app',
-    'https://*.railway.app',
+    'https://django-backend-sdmi.onrender.com',
     'http://localhost:3000',
     'http://127.0.0.1:3000',
 ]
